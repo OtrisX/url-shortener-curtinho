@@ -9,7 +9,7 @@ async function handleShortenUrl(host: string) {
   
   if(regex.test(url.value) === false) return alert('URL inválida')
 
-  const shortURL = await axios.post('http://localhost:3000/api/encurtar', {
+  const shortURL = await axios.post(`${host}/api/encurtar`, {
     url: url.value,
   }).catch(err => console.log(err))
   console.log(shortURL)
