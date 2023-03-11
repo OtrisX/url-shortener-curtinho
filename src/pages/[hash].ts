@@ -3,7 +3,7 @@ import { Url } from "@/mongo/models/url";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const url = await Url.findOne({ hash: context.params.hash});
+    const url = await Url.findOne({ hash: context.params?.hash || ""});
     
     if(url) {
         return {
