@@ -1,6 +1,5 @@
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from "next";
-import { useRouter } from 'next/router'
 const regex = /^(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$/;
 
 
@@ -8,16 +7,15 @@ async function handleShortenUrl(host: string) {
   const url = document.querySelector('#url') as HTMLInputElement
   
   if(regex.test(url.value) === false) return alert('URL inválida')
-
-  const shortURL = await axios.post(`${host}/api/encurtar`, {
+  const shortURL = await axios.post(`api/encurtar`, {
     url: url.value,
   }).catch(err => console.log(err))
-  console.log(shortURL)
 
   url.value = shortURL ? `${host}/${shortURL.data.hash}` : ''
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
 return {
   props: {host: context.req.headers.host} , 
 }
